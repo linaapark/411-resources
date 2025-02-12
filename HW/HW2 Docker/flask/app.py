@@ -23,8 +23,8 @@ def repeat():
     )
     return response
 
-@app.rout('/health', methods=['GET'])
-@app.rout('/healthcheck', methods=['GET'])
+@app.route('/health', methods=['GET'])
+@app.route('/healthcheck', methods=['GET'])
 def health():
     response = make_response(
         {
