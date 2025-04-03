@@ -217,7 +217,7 @@ def get_boxer_by_id(boxer_id: int) -> Boxer:
                 )
                 return boxer
             else:
-                logger.info(f"Bixer with ID {boxer_id} not found")
+                logger.info(f"Boxer with ID {boxer_id} not found")
                 raise ValueError(f"Boxer with ID {boxer_id} not found.")
 
     except sqlite3.Error as e:
