@@ -21,7 +21,7 @@ class RingModel:
     """
 
     def __init__(self):
-        """Initializes the RingModel with an empty ring.
+        """Initializes the RingModel with an empty List made with Boxers.
 
         """
         self.ring: List[Boxer] = []
@@ -106,7 +106,7 @@ class RingModel:
             raise ValueError("Ring is full, cannot add more boxers.")
 
         self.ring.append(boxer)
-        logger.info(f"Successfully added boxer to ring: {Boxer.name} - {Boxer.id} ({Boxer.weight})")
+        logger.info(f"Successfully added boxer to ring: {boxer.name} - {boxer.weight} ({boxer.height})")
 
     ##################################################
     # Ring Retrieval Functions
@@ -134,7 +134,7 @@ class RingModel:
         """Returns the fighting skills of the ring in a float value.
 
         Args: 
-            boxer (Boxer): The boxer to add to the ring.
+            boxer (Boxer): The boxer to get fighting skills .
 
         Returns:
             the fighting skills in a float value
