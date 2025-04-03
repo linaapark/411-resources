@@ -123,7 +123,8 @@ class RingModel:
 
         """
         if not self.ring:
-            pass
+            logger.error("Ring is empty") 
+            raise ValueError("Ring is empty")
         else:
             pass
 
