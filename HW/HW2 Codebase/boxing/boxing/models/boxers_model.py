@@ -71,7 +71,7 @@ def create_boxer(name: str, weight: int, height: int, reach: float, age: int) ->
             # Check if the boxer already exists (name must be unique)
             cursor.execute("SELECT 1 FROM boxers WHERE name = ?", (name,))
             if cursor.fetchone():
-                raise ValueError(f"Boxer with name '{name}' already exists")
+                raise ValueError(f"Boxer with name '{name}' already exists.")
 
             cursor.execute("""
                 INSERT INTO boxers (name, weight, height, reach, age)
@@ -84,7 +84,7 @@ def create_boxer(name: str, weight: int, height: int, reach: float, age: int) ->
 
     except sqlite3.IntegrityError:
         logger.error(f"Boxer already exists: {name} - {weight} ({height})")
-        raise ValueError(f"Boxer with name '{name}' already exists")
+        raise ValueError(f"Boxer with name '{name}' already exists.")
 
     except sqlite3.Error as e:
         logger.error(f"Database error while creating song: {e}")
@@ -260,7 +260,7 @@ def get_boxer_by_name(boxer_name: str) -> Boxer:
                 return boxer
             else:
                 logger.info(f"Boxer with name '{boxer_name}' not found")
-                raise ValueError(f"Boxer '{boxer_name}' not found.")
+                raise ValueError(f"Boxer with name '{boxer_name}' not found.")
 
     except sqlite3.Error as e:
         raise e
