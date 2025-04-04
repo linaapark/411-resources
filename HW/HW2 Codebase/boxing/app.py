@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, make_response, Response, request
 # from flask_cors import CORS
 
+import os
+
 from boxing.models import boxers_model
 from boxing.models.ring_model import RingModel
 from boxing.utils.logger import configure_logger
@@ -27,6 +29,7 @@ configure_logger(app.logger)
 #
 ####################################################
 
+port = os.getenv('PORT')
 
 @app.route('/api/health', methods=['GET'])
 def healthcheck() -> Response:
@@ -523,7 +526,7 @@ if __name__ == '__main__':
     app.logger.info("Starting Flask app...")
 
     try:
-        app.run(debug=True, host='0.0.0.0', port=5000)
+        app.run(debug=True, host='0.0.0.0', port=port)
     except Exception as e:
         app.logger.error(f"Flask app encountered an error: {e}")
     finally:

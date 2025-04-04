@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the base URL for the Flask API
-BASE_URL="http://localhost:5002/api"
+BASE_URL="http://127.0.0.1:5002/api"
 
 # Flag to control whether to echo JSON output
 ECHO_JSON=false

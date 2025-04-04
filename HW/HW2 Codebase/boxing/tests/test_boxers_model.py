@@ -3,6 +3,13 @@ import re
 import sqlite3
 
 import pytest
+from pytest_mock import MockerFixture
+
+import unittest
+
+from unittest.mock import patch
+from unittest.mock import MagicMock
+
 
 from boxing.models.boxers_model import (
     Boxer,
@@ -186,19 +193,57 @@ def test_delete_boxer_bad_id(mock_cursor):
 
 ######################################################
 #
-#    Get Song
+#    Get Leaderboard
 #
 ######################################################
 
-#10
-def test_get_leaderboard(mock_cursor):
-    """Test error when having and Invalid sort_by parameter.
+def test_leaderboard_with_wins(mock_cursor):
+    """Testing valid leaderboard by wins
+
+    """
+
+    mock_cursor.fetchall.return_value = [
+        (1, 'Boxer 1', 200, 170, 198.5, 30, 12, 10, 0.833),
+        (2, 'Boxer 2', 150, 175, 190.5, 28, 6, 5, 0.833)
+    ]
+
+    leaderboard = get_leaderboard("wins")
+
+    assert len(leaderboard) == 2
+    assert leaderboard[0]['name'] == 'Boxer 1'
+    assert leaderboard[0]['wins'] == 10
+    assert leaderboard[1]['name'] == 'Boxer 2'
+    assert leaderboard[1]['wins'] == 5
+
+def test_leaderboard_with_pct(mock_cursor):
+    """Testing valid leaderboard by winp percentage (wins * 1.0 / fights)
+
+    """
+    mock_cursor.fetchall.return_value = [
+        (1, 'Boxer 1', 200, 170, 198.5, 30, 12, 10, 0.833),
+        (2, 'Boxer 2', 150, 175, 190.5, 28, 6, 5, 0.833)
+    ]
+
+    leaderboard = get_leaderboard("win_pct")
+
+    assert len(leaderboard) == 2
+
+def test_invalid_leaderboard(mock_cursor):
+    """Testing invalid sorting leaderboard where sort_by is not win_pct or wins
 
     """
     mock_cursor.fetchone.return_value = None
+    sort_by = 'loss'
+    with pytest.raises(ValueError, match=f"Invalid sort_by parameter: {sort_by}"):
+        get_leaderboard('loss')
 
-    with pytest.raises(ValueError, match="Invalid sort_by parameter: hello"):
-        get_leaderboard("hello")
+
+##########################################################
+#
+# Get Boxers
+#
+##########################################################
+
 
 #11
 def test_get_boxer_by_id(mock_cursor):
@@ -235,7 +280,7 @@ def test_get_boxer_by_id_bad_id(mock_cursor):
         get_boxer_by_id(999)
 
 #13
-def test_get_song_by_name(mock_cursor):
+def test_get_boxer_by_name(mock_cursor):
     """Test getting a song by name.
 
     """
@@ -258,7 +303,7 @@ def test_get_song_by_name(mock_cursor):
     assert actual_arguments == expected_arguments, f"The SQL query arguments did not match. Expected {expected_arguments}, got {actual_arguments}."
 
 #14
-def test_get_song_by_name_bad_name(mock_cursor):
+def test_get_boxer_by_name_bad_name(mock_cursor):
     """Test error when getting a non-existent name.
 
     """
