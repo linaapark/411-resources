@@ -9,11 +9,12 @@ logger = logging.getLogger(__name__)
 configure_logger(logger)
 
 
+# Default to decimal fractions if the environment variable is not set
 RANDOM_ORG_URL = os.getenv("RANDOM_ORG_URL",
                            "https://www.random.org/decimal-fractions/?num=1&dec=2&col=1&format=plain&rnd=new")
 
 
-def get_random(max:float) -> float:
+def get_random(max: int) -> float:
     """
     Fetches a random float number between 1 and max inclusive from random.org.
 
@@ -28,14 +29,14 @@ def get_random(max:float) -> float:
         ValueError: If the response from random.org is not a valid float.
     """
     
-     # Construct the full URL dynamically
-    url = f"{RANDOM_ORG_URL}&max={max}"
+    # Construct the URL for fetching integers from random.org
+    url = f"https://www.random.org/integers/?num=1&min=1&col=1&base=10&format=plain&rnd=new&max={max}"
 
     try:
         # Log the request to random.org
         logger.info(f"Fetching random number from {url}")
 
-        response = requests.get(RANDOM_ORG_URL, timeout=5)
+        response = requests.get(url, timeout=5)
 
         # Check if the request was successful
         response.raise_for_status()

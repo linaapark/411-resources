@@ -238,7 +238,7 @@ check_db
 ##############################
 
 # Create boxers
-create_boxer "Boxer One" 120 52 10.9 18
+create_boxer "Boxer One" 150 52 10.9 18
 create_boxer "Boxer Two" 180 62 11.0 20
 create_boxer "Boxer Three" 150 60 17.8 22
 
@@ -250,13 +250,13 @@ get_boxer_by_id 2
 get_boxer_by_name "Boxer One"
 
 #ring management
-enter_ring "Boxer One" 120 52 10.9 18
+enter_ring "Boxer One" 150 52 10.9 18
 enter_ring "Boxer Two" 180 62 11.0 20
 get_boxers
 clear_ring
 
 #start fight
-enter_ring "Boxer One" 120 52 10.9 18
+enter_ring "Boxer One" 150 52 10.9 18
 enter_ring "Boxer Two" 180 62 11.0 20
 fight
 

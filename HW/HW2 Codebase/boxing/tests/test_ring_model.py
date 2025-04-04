@@ -16,7 +16,7 @@ def ring_model():
 """Fixtures providing sample songs for the tests."""
 @pytest.fixture
 def sample_boxer1():
-    return Boxer(1, "Boxer One", 120, 62, 10.9, 18)
+    return Boxer(1, "Boxer One", 150, 62, 10.9, 18)
 
 @pytest.fixture
 def sample_boxer2():
@@ -105,7 +105,7 @@ def test_get_fighting_skill(ring_model, sample_boxer1):
     """
     fighting_skill = ring_model.get_fighting_skill(sample_boxer1)
 
-    assert fighting_skill == 2025
+    assert fighting_skill == 1350.09
 
 ##################################################
 # Fight/Overall

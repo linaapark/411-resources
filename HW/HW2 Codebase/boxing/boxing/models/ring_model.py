@@ -51,7 +51,7 @@ class RingModel:
         delta = abs(skill_1 - skill_2)
         normalized_delta = 1 / (1 + math.e ** (-delta))
 
-        random_number = get_random()
+        random_number = get_random(2 * normalized_delta)
 
         if random_number < normalized_delta:
             winner = boxer_1
@@ -123,7 +123,7 @@ class RingModel:
 
         """
         if not self.ring:
-            logger.error("Ring is empty") 
+            logger.error("Ring is empty") # added these two lines
             raise ValueError("Ring is empty")
         else:
             pass
