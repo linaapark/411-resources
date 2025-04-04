@@ -184,7 +184,7 @@ clear_ring() {
 
 fight() {
   echo "Starting the fight..."
-  response=$(curl -s -X POST "$BASE_URL/fight")
+  response=$(curl -s -X GET "$BASE_URL/fight")
 
   if echo "$response" | grep -q '"status": "success"'; then
     echo "The fight has begun."
