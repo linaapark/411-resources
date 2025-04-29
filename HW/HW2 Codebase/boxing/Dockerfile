@@ -10,10 +10,10 @@ COPY . /app
 # Copy the env file to the container
 COPY .env /app/.env
 
+# Make port 5002 available to the world outside this container
+ENV PORT=5002
+
 # Install any needed packages specified in requirements.txt
-# In production, you would want to ensure that any re-compiled packages
-# With the same version number are re-downloaded
-# RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install -r requirements.txt
 
 # Install SQLite3
@@ -27,8 +27,10 @@ RUN chmod +x /app/sql/create_db.sh
 # Define a volume for persisting the database
 VOLUME ["/app/db"]
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+EXPOSE $PORT
 
-# Run the entrypoint script when the container launches
-CMD ["/app/entrypoint.sh"]
+#  Add this line to ensure entrypoint.sh is executable
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]
+
+
